@@ -6,7 +6,7 @@
   <ul>
     <li v-for="(v, i) of listStore.list">
       {{ v }}
-      <button @click="onClickDeleteButton(i)">ㅁㄴㅇ</button>
+      <button @click="onClickDeleteButton(i)">삭제</button>
     </li>
   </ul>
 </template>

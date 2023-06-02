@@ -12,3 +12,6 @@
   --unnamed-font-size-28: 28px;
   --unnamed-font-size-38: 38px;
 }
+button {
+  cursor: pointer;
+}
