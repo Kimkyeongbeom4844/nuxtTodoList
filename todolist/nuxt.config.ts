@@ -32,4 +32,7 @@ export default defineNuxtConfig({
     },
     storage: "cookies",
   },
+  typescript: {
+    strict: true,
+  },
 });

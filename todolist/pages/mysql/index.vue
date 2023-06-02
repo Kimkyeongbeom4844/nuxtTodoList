@@ -19,17 +19,24 @@
 
 <script setup lang="ts">
 const inputText = ref("");
-const { data, pending, error, refresh }: { data: any } = await useFetch(
-  "/api/list",
-  {
-    method: "GET",
-    lazy: true,
-    immediate: true,
-    onResponse: ({ response }) => {
-      console.log(response._data);
-    },
-  }
-);
+const {
+  data,
+  pending,
+  error,
+  refresh,
+}: {
+  data: Ref<any>;
+  pending: Ref<boolean>;
+  error: Ref<Error | null>;
+  refresh: () => Promise<void>;
+} = await useFetch("/api/list", {
+  method: "GET",
+  lazy: true,
+  immediate: true,
+  onResponse: ({ response }) => {
+    console.log(response._data);
+  },
+});
 const onSubmitInputText = async (e: Event) => {
   await useFetch("/api/list", {
     method: "POST",
