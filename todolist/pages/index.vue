@@ -1,73 +1,26 @@
 <template>
-  <form v-if="data" @submit.prevent="onSubmitInputText">
+  <form @submit.prevent="onSubmitInputText">
     <input required v-model="inputText" />
     <button>추가</button>
   </form>
-  <p v-if="pending">로딩 중</p>
-  <div v-else-if="error">
-    <p>서버와 통신에 문제가 있습니다. 다시 시도해주세요</p>
-    <button @click="() => refresh()">재시도</button>
-  </div>
-  <ul v-else-if="data">
-    <li v-for="i of data" :data-id="i.id">
-      {{ i.title }}
-      <button @click="onClickDeleteButton(i.id)">삭제</button>
+  <ul>
+    <li v-for="(v, i) of listStore.list">
+      {{ v }}
+      <button @click="onClickDeleteButton(i)">ㅁㄴㅇ</button>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-const { data, pending, error, refresh } = await useFetch("/api/list", {
-  method: "GET",
-  lazy: true,
-  immediate: true,
-});
+import { useListStore } from "@/stores/list";
+const listStore = useListStore();
 const inputText = ref("");
-const onSubmitInputText = async (e: Event) => {
-  await useFetch("/api/list", {
-    method: "POST",
-    lazy: true,
-    body: {
-      title: inputText.value,
-    },
-    watch: false,
-    onRequest: ({ request }) => {
-      inputText.value = "";
-    },
-    onRequestError: ({ error }) => {
-      console.log(error);
-    },
-    onResponse: ({ response }) => {
-      console.log(response._data);
-      refresh();
-    },
-    onResponseError: ({ response }) => {
-      console.log(response._data);
-      refresh();
-    },
-  });
+const onSubmitInputText = (e: Event) => {
+  listStore.addList(inputText.value);
+  inputText.value = "";
 };
-const onClickDeleteButton = async (v: number) => {
-  await useFetch("/api/list", {
-    method: "POST",
-    lazy: true,
-    query: {
-      id: v,
-    },
-    watch: false,
-    onRequest: ({ request }) => {},
-    onRequestError: ({ error }) => {
-      console.log(error);
-    },
-    onResponse: ({ response }) => {
-      console.log(response._data);
-      refresh();
-    },
-    onResponseError: ({ response }) => {
-      console.log(response._data);
-      refresh();
-    },
-  });
+const onClickDeleteButton = (v: number) => {
+  listStore.deleteList(v);
 };
 </script>
 

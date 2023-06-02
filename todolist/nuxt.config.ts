@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
   css: ["@/assets/css/reset.css", "@/assets/css/style.css"],
   devServer: {
     port: 3000,
@@ -24,5 +24,12 @@ export default defineNuxtConfig({
         },
       ],
     },
+  },
+  piniaPersistedstate: {
+    cookieOptions: {
+      maxAge: 3600,
+      sameSite: "strict",
+    },
+    storage: "cookies",
   },
 });
