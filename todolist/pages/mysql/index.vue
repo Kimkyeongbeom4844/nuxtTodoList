@@ -9,7 +9,7 @@
     <button @click="() => refresh()">재시도</button>
   </div>
   <ul v-else="data">
-    <li v-if="data?.constructor === Array" v-for="i of data" :data-id="i.id">
+    <li v-if="data?.constructor === Array" v-for="i of data">
       {{ i.title }}
       <button @click="onClickDeleteButton(i.id)">삭제</button>
     </li>
@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { AsyncDataExecuteOptions } from "@/types/fetch";
 const inputText = ref("");
 const {
   data,
@@ -28,7 +29,7 @@ const {
   data: Ref<any>;
   pending: Ref<boolean>;
   error: Ref<Error | null>;
-  refresh: () => Promise<void>;
+  refresh: (opts?: AsyncDataExecuteOptions) => Promise<void>;
 } = await useFetch("/api/list", {
   method: "GET",
   lazy: true,
