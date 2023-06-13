@@ -9,8 +9,8 @@ export default defineEventHandler(async (e) => {
       password: dbPw,
       database: dbDb,
     });
-    const [result] = await connection.query(`select * from list`);
-    return result;
+    const [rows, fields] = await connection.query(`select * from list`);
+    return rows;
   } catch (error) {
     console.log(error);
     return { message: "error" };

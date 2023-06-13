@@ -10,14 +10,14 @@ export default defineEventHandler(async (e) => {
       database: dbDb,
     });
     if (data) {
-      const [result] = await connection.query(
+      const [rows, fields] = await connection.query(
         `insert into list (title,created) values ('${data.title}',now())`
       );
       return { message: "add" };
     }
     const query = getQuery(e);
     console.log(query);
-    const [result] = await connection.query(
+    const [rows, fields] = await connection.query(
       `delete from list where id=${query.id}`
     );
     return { message: "delete" };
