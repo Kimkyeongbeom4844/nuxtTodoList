@@ -16,12 +16,12 @@ export default defineNuxtConfig({
     dbDb: process.env.DATABASE_DATABASE || "todolist",
   },
   app: {
-    title: "todolist",
     head: {
+      title: "nuxt로 만든 투두리스트",
       meta: [
         {
-          name: "summary",
-          content: "nuxt3로 만든 todolist",
+          name: "description",
+          content: "SEO까지 세팅한 nuxt3로 만든 투두리스트",
         },
         {
           charset: "utf-8",
